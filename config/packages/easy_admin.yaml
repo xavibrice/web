@@ -1,6 +1,47 @@
-#easy_admin:
-#    entities:
-#        # List the entity class name you want to manage
-#        - App\Entity\Product
-#        - App\Entity\Category
-#        - App\Entity\User
+easy_admin:
+    site_name: 'Loyalty'
+    show:
+        max_results: 20
+    entities:
+        Blog:
+            class: App\Entity\Blog
+            label: 'Posts'
+            help: 'Mensaje global mostrado en todas las vistas.'
+            form:
+                title: 'Añadir %%entity_label%%'
+                form_options: { validation_groups: ['Default'] }
+                fields:
+                    - { property: 'id', type_options: { disabled: true } }
+                    - { property: 'title', type: 'text', label: 'Título' }
+                    - summary
+                    - content
+                    - tag
+                    - state
+            new:
+                title: 'Añadir %%entity_label%%'
+                form_options: { validation_groups: ['Default', 'Blog'] }
+                fields:
+                    - '-id'
+            edit:
+                title: 'Editar %%entity_label%%'
+                fields:
+                    - slug
+                form_options: { validation_groups: ['Default'] }
+            list:
+                title: 'Listado %%entity_label%%'
+                help: 'La vista de lista anula el mensaje de ayuda global.'
+                max_results: 10
+                fields:
+                    - id
+                    - title
+                    - summary
+                    - state
+                    - created_at
+            show:
+                title: '%%entity_label%% (#%%entity_id%%)'
+                max_results: 5
+            search:
+                help: null
+
+        Tag:
+            class: App\Entity\Tag

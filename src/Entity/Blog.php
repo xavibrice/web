@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BlogRepository")
  * @ORM\Table(name="blogs")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Blog
 {
@@ -54,9 +55,15 @@ class Blog
      */
     private $tag;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $state;
+
     public function __construct()
     {
         $this->tag = new ArrayCollection();
+        $this->slug = rand(0, 10000000);
     }
 
     public function getId(): ?int
@@ -160,5 +167,39 @@ class Blog
         }
 
         return $this;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     */
+    public function prePersist()
+    {
+        $this->created_at = new \DateTime();
+        $this->updated_at = new \DateTime();
+    }
+
+    /**
+     * @ORM\PreUpdate()
+     */
+    public function preUpdate()
+    {
+        $this->updated_at = new \DateTime();
+    }
+
+    public function getState(): ?bool
+    {
+        return $this->state;
+    }
+
+    public function setState(bool $state): self
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return (string)$this->title;
     }
 }
