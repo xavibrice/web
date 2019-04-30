@@ -6,13 +6,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BlogRepository")
  * @ORM\Table(name="blogs")
  * @ORM\HasLifecycleCallbacks()
+ * @Gedmo\TranslationEntity(class="App\Entity\BlogTranslation")
  */
-class Blog
+class Blog implements Translatable
 {
     /**
      * @ORM\Id()
@@ -22,6 +24,7 @@ class Blog
     private $id;
 
     /**
+     * @Gedmo\Translatable()
      * @ORM\Column(type="string", length=255)
      */
     private $title;
@@ -33,11 +36,13 @@ class Blog
     private $slug;
 
     /**
+     * @Gedmo\Translatable()
      * @ORM\Column(type="string", length=255)
      */
     private $summary;
 
     /**
+     * @Gedmo\Translatable()
      * @ORM\Column(type="text")
      */
     private $content;
@@ -61,6 +66,20 @@ class Blog
      * @ORM\Column(type="boolean")
      */
     private $state;
+
+    /**
+     * @ORM\OneToMany(
+     *     targetEntity="App\Entity\BlogTranslation",
+     *     mappedBy="object",
+     *     cascade={"persist", "remove"}
+     * )
+     */
+    private $translations;
+
+    /**
+     * @Gedmo\Locale()
+     */
+    private $locale;
 
     public function __construct()
     {
@@ -203,4 +222,31 @@ class Blog
     {
         return (string)$this->title;
     }
+
+    public function getTranslations(): Collection
+    {
+        return $this->translations;
+    }
+
+    public function addTranslation(BlogTranslation $t): void
+    {
+        if (!$this->translations->contains($t)) {
+            $this->translations[] = $t;
+            $t->setObjectClass($this);
+        }
+    }
+
+    public function setTranslatableLocale(string $locale): void
+    {
+        $this->locale = $locale;
+    }
+
+
+    public function getLocale(): ?string
+    {
+        return $this->locale;
+    }
+
+
+
 }
