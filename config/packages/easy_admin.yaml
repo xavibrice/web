@@ -1,5 +1,9 @@
 easy_admin:
     site_name: 'Loyalty'
+    user:
+#        display_name: true
+#        display_avatar: true
+        name_property_path: 'email'
     show:
         max_results: 20
     entities:
