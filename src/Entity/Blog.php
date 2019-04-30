@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BlogRepository")
@@ -26,7 +27,8 @@ class Blog
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @Gedmo\Slug(fields={"title"}, updatable=true)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $slug;
 
@@ -63,7 +65,6 @@ class Blog
     public function __construct()
     {
         $this->tag = new ArrayCollection();
-        $this->slug = rand(0, 10000000);
     }
 
     public function getId(): ?int
