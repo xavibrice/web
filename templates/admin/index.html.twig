@@ -3,5 +3,10 @@
 {% block title %}Hello AdminController!{% endblock %}
 
 {% block body %}
-    <p>admin</p>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+
+    {{ form_end(form) }}
+
 {% endblock %}

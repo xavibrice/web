@@ -11,10 +11,7 @@ class SecurityController extends AbstractController
 {
     /**
      * @return Response
-     * @Route({
-     *     "es": "/entrar",
-     *     "en": "/login"
-     * }, name="app_login")
+     * @Route("/login", name="app_login")
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {

@@ -30,6 +30,7 @@ class Blog implements Translatable
     private $title;
 
     /**
+     * @Gedmo\Translatable()
      * @Gedmo\Slug(fields={"title"}, updatable=true)
      * @ORM\Column(type="string", length=255, unique=true)
      */
@@ -84,6 +85,7 @@ class Blog implements Translatable
     public function __construct()
     {
         $this->tag = new ArrayCollection();
+        $this->translations = new ArrayCollection();
     }
 
     public function getId(): ?int
