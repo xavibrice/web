@@ -6,7 +6,28 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+    {% block header %}
+        {% for locale in locales() %}
+            <a href="{{ path(app.request.get('_route', 'homepage'), app.request.get('_route_params', [])|merge({_locale: locale.code})) }}">{{ locale.name|capitalize }}</a>
+        {% endfor %}
+
+        {% if app.user %}
+            <a href="{{ path('admin') }}">{{ 'menu.admin'|trans }}</a>
+        {% endif %}
+
+        <a href="{{ path('homepage') }}">{{ 'menu.home'|trans }}</a>
+        <a href="{{ path('contact') }}">{{ 'menu.contact'|trans }}</a>
+
+
+        <hr>
+        <a href="{{ path('app_login') }}">{{ 'menu.login'|trans }}</a>
+        <a href="{{ path('app_register') }}">{{ 'menu.register'|trans }}</a>
+
+
+
+    {% endblock %}
+
+    {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
 </html>

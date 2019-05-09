@@ -10,7 +10,11 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends AbstractController
 {
     /**
-     * @Route("/login", name="app_login")
+     * @return Response
+     * @Route({
+     *     "es": "/entrar",
+     *     "en": "/login"
+     * }, name="app_login")
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
