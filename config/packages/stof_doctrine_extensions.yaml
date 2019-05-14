@@ -5,5 +5,5 @@ stof_doctrine_extensions:
     orm:
         default:
             sluggable: true
-#            softdeleteable: true
+            softdeleteable: true
             translatable: true

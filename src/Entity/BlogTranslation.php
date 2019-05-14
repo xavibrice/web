@@ -4,7 +4,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Translatable\Entity\MappedSuperclass\AbstractTranslation;
+use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
 
 /**
  * @ORM\Entity
@@ -15,7 +15,7 @@ use Gedmo\Translatable\Entity\MappedSuperclass\AbstractTranslation;
  * )
  */
 
-class BlogTranslation extends AbstractTranslation
+class BlogTranslation extends AbstractPersonalTranslation
 {
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Blog", inversedBy="translations")

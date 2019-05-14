@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Blog;
 use App\Form\BlogType;
+use Gedmo\Translatable\TranslatableListener;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,6 +36,32 @@ class AdminController extends AbstractController
 
         return $this->render('admin/index.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/admin/all", name="admin_all")
+     */
+    public function getAll(Request $request)
+    {
+
+        $this->
+        $n = new Blog();
+
+        $em = $this->getDoctrine()->getManager()->getRepository(Blog::class)->createQueryBuilder('b');
+
+        $query = $em->getQuery();
+
+
+        $query->setHint(TranslatableListener::HINT_TRANSLATABLE_LOCALE, $request->getLocale());
+
+        $query->getResult();
+
+
+        dump($query);die;
+
+        return $this->render('admin/all.html.twig', [
+            'blogs' => $query
         ]);
     }
 }

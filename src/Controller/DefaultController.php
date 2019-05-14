@@ -18,10 +18,7 @@ class DefaultController extends AbstractController
 
     /**
      * @return Response
-     * @Route({
-     *     "es": "/contacto",
-     *     "en": "/contact"
-     * }, name="contact")
+     * @Route("/contact", name="contact")
      */
     public function contact(): Response
     {

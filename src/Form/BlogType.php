@@ -19,14 +19,7 @@ class BlogType extends AbstractType
             ->add('title', TextType::class)
             ->add('summary', TextareaType::class)
             ->add('content', TextareaType::class)
-            ->add('state', ChoiceType::class, [
-                'choices' => [
-                    'YES' => 1,
-                    'NO' => 0
-                ],
-                'label' => 'STATE',
-                'required' => true
-            ])
+            ->add('state')
             ->add('tag')
             ->add('save', SubmitType::class)
         ;
